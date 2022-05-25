@@ -68,6 +68,17 @@ function SignUpForm() {
 						/>
 					</div>
 				</div>
+				<div className="col-sm-6 form-group">
+						<label htmlFor="firstName">Password</label>
+						<input
+							required
+							value={user.password}
+							onChange={e => setUser({ ...user, password: e.target.value })}
+							className="form-control"
+							id="password"
+							name="password"
+						/>
+					</div>
 				<input className="btn btn-primary" type="submit" value="Sign Up" />
 			</form>
 		</main>
