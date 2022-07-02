@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { CurrentUser } from "../contexts/CurrentUser";
 
@@ -14,7 +14,7 @@ function LoginForm() {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     console.log(credentials)
     const response = await fetch("http://localhost:5000/authentication/", {

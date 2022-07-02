@@ -1,14 +1,19 @@
 import { useContext } from "react";
 import {CurrentUser} from "../contexts/CurrentUser"
 
-function CommentCard({ comment, onDelete }) {
+type CommentProps = {
+  comment: UserComment,
+  onDelete: Function
+}
+
+const CommentCard: React.FunctionComponent<CommentProps> = ({ comment, onDelete }) => {
   const { currentUser } = useContext(CurrentUser);
 
   let deleteButton = null;
 
   if (currentUser && currentUser.userId === comment.authorId) {
     deleteButton = (
-      <button className="btn btn-danger" onClick={onDelete}>
+      <button className="btn btn-danger" onClick={() => onDelete()}>
         Delete Comment
       </button>
     );

@@ -1,8 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 
-export const CurrentUser = createContext();
+type ButtonProps = {
+  children: React.ReactNode;
+};
 
-function CurrentUserProvider({ children }) {
+export const CurrentUser = createContext({
+  currentUser: {
+    firstName: '',
+    lastName: '',
+    userId: 0,
+    role: ''
+  },
+  setCurrentUser: (_value: Object) => {}
+});
+
+const CurrentUserProvider: React.FunctionComponent<ButtonProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   const getLoggedInUser = async () => {

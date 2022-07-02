@@ -5,7 +5,7 @@ import NewCommentForm from "./NewCommentForm";
 import { CurrentUser } from "../contexts/CurrentUser";
 
 function PlaceDetails() {
-  const { placeId } = useParams();
+  const { placeId } = useParams<{placeId: string}>();
 
   const history = useHistory();
 
@@ -37,7 +37,7 @@ function PlaceDetails() {
     history.push("/places");
   }
 
-  async function deleteComment(deletedComment) {
+  async function deleteComment(deletedComment: UserComment) {
     await fetch(
       `http://localhost:5000/places/${place.placeId}/comments/${deletedComment.commentId}`,
       {
@@ -48,12 +48,12 @@ function PlaceDetails() {
     setPlace({
       ...place,
       comments: place.comments.filter(
-        (comment) => comment.commentId !== deletedComment.commentId
+        (comment: UserComment) => comment.commentId !== deletedComment.commentId
       ),
     });
   }
 
-  async function createComment(commentAttributes) {
+  async function createComment(commentAttributes: UserComment) {
     const response = await fetch(
       `http://localhost:5000/places/${place.placeId}/comments`,
       {
@@ -77,7 +77,7 @@ function PlaceDetails() {
   let comments = <h3 className="inactive">No comments yet!</h3>;
   let rating = <h3 className="inactive">Not yet rated</h3>;
   if (place.comments.length) {
-    let sumRatings = place.comments.reduce((tot, c) => {
+    let sumRatings = place.comments.reduce((tot: number, c: UserComment) => {
       return tot + c.stars;
     }, 0);
     let averageRating = Math.round(sumRatings / place.comments.length);
@@ -86,7 +86,7 @@ function PlaceDetails() {
       stars += "⭐️";
     }
     rating = <h3>{stars} stars</h3>;
-    comments = place.comments.map((comment) => {
+    comments = place.comments.map((comment: UserComment) => {
       return (
         <CommentCard
           key={comment.commentId}
